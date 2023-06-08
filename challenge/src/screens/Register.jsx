@@ -34,7 +34,7 @@ const handleSignInPress = () =>{
     </View>
     <View style={{width:"100%", alignItems:"center"}}>
       <Text style={{fontSize: 24, color:"black",fontWeight:"bold"}}> Welcome!</Text>
-      <Text style={{color:"#1F1F1F", width:"80%"}}>Join the best home goods marketplace, discover furniture for your home, track your progress, have fun, and buy furniture. </Text>
+      <Text style={{color:"#1F1F1F", width:"80%",}}>Join the best home goods marketplace, discover furniture for your home, track your progress, have fun, and buy furniture. </Text>
       </View>
       </View>
 
