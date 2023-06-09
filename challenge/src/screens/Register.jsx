@@ -27,7 +27,7 @@ const handleSignInPress = () =>{
     <ImageBackground
     source={{ uri: 'https://i.pinimg.com/474x/4c/c0/20/4cc0202da94f3c7cf41c267e3f3e7011.jpg' }}
     style={{flex: 1, }}> 
-    <View>
+    <View style={{display:"flex", flexDirection:"column", gap:12}}>
     <View style={{ height:"30%", marginTop:24, justifyContent:"center"}}> 
       <View style={{ alignItems:"center",height:"50%"}}>
     <Image style={{ height: "100%", width: "20%", }} source={{ uri: 'https://i.ibb.co/rs01RXm/image.png' }} />
