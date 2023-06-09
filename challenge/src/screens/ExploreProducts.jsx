@@ -13,7 +13,7 @@ import categories from "../../store/actions/categories"
 const ExploreProducts = () => {
   let { cards_home_read } = cards_home
  let{categories_read} = categories
-  const navigation = useNavigation();
+ const navigation = useNavigation()
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -73,18 +73,33 @@ const ExploreProducts = () => {
         <View style={{ width: "90%", backgroundColor: "white", display: "flex", flexDirection: "column", gap: 12, alignItems: "center", padding: 12 }}>
           <Text style={{ fontSize: 20 }}>Best Sellers</Text>
           {cardsHome.map((card) => (
-            <View key={card._id} style={{ width: "100%", height: 150, display: "flex", flexDirection: "row", borderWidth: 2, borderColor: "#d9d9d9" }}>
+            <View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("DetailsProduct", { id: `${card._id}` })}
+              key={card._id}
+              style={{
+                width: "100%",
+                height: 150,
+                display: "flex",
+                flexDirection: "row",
+                borderWidth: 2,
+                borderColor: "#d9d9d9"
+              }}
+            >
               <Image
                 style={{ width: "40%", height: "100%", marginRight: 10 }}
                 source={{ uri: card.photo }}
               />
-              <View style={{ display: "flex", justifyContent: "space-evenly", alignItems: "flex-start" }}>
+              <View
+                style={{ display: "flex", justifyContent: "space-evenly", alignItems: "flex-start" }}
+              >
                 <Text style={{ fontSize: 14, width: 150 }}>{card.name}</Text>
                 <Text style={{ color: "purple", fontSize: 12 }}>{card.price}</Text>
               </View>
-            </View>
+            </TouchableOpacity>
+          </View>
           ))}
-          <TouchableOpacity style={{ height: 50, alignItems: "center" }} /* onPress={navigate(/allproducts)} hacer redirect a allproducts */ >
+          <TouchableOpacity style={{ height: 50, alignItems: "center" }} onPress={() => navigation.navigate('AllProducts')} >
             <LinearGradient
               colors={['#403d56', '#6474a3']}
               style={{ width: "80%", height: "100%", justifyContent: "center", borderRadius: 50 }}>

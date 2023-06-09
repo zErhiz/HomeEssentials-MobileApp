@@ -6,6 +6,7 @@ import Register from "../screens/Register";
 import ExploreProducs from "../screens/ExploreProducts";
 import SignIn from "../screens/SignIn";
 import AllProducts from "../screens/AllProducts";
+import DetailsProduct from "../screens/DetailsProducs"
 const Tab = createBottomTabNavigator();
 
 function BottomTabsNavigator() {
@@ -17,6 +18,7 @@ function BottomTabsNavigator() {
       <Tab.Screen name="Cart" component={Cart} />
       <Tab.Screen name="ExploreProducts" component={ExploreProducs} />
       <Tab.Screen name="AllProducts" component={AllProducts} />
+      <Tab.Screen name="DetailsProduct" component={DetailsProduct} />
     </Tab.Navigator>
   );
 }
