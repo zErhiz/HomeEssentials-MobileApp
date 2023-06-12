@@ -73,10 +73,12 @@ const ExploreProducts = () => {
         <View style={{ width: "90%", backgroundColor: "white", display: "flex", flexDirection: "column", gap: 12, alignItems: "center", padding: 12 }}>
           <Text style={{ fontSize: 20 }}>Best Sellers</Text>
           {cardsHome.map((card) => (
-            <View>
+            <View
+            key={card._id}
+            >
             <TouchableOpacity
               onPress={() => navigation.navigate("DetailsProduct", { id: `${card._id}` })}
-              key={card._id}
+              
               style={{
                 width: "100%",
                 height: 150,
@@ -112,10 +114,14 @@ const ExploreProducts = () => {
           <Text style={{ fontSize: 20 }}>Search by category</Text>
           {categoriesHome.map((cat) => (
            <View key={cat._id} style={{ width: "100%", height: 160, display: "flex", flexDirection:"column", justifyContent:"center", alignItems:"center" }}>
+            <TouchableOpacity  style={{ width: "35%", height: "70%" }}
+            onPress={() => navigation.navigate("Category", { id: `${cat._id}` })}> 
            <Image
-             style={{ width: "35%", height: "70%", marginRight: 10, borderRadius: 100 }}
+             
+             style={{ width: "100%", height: "100%", marginRight: 10, borderRadius: 100 }}
              source={{ uri: cat.coverPhoto }}
            />
+           </TouchableOpacity>
            <View style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
              <Text style={{ fontSize: 14, width: 150, textAlign:"center" }}>{cat.name}</Text>
            </View>
