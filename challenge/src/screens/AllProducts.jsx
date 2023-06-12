@@ -1,19 +1,20 @@
-import React, { useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView  } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 import { Button } from 'react-native-paper';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-
-import  products_actions  from '../../store/actions/products';
+import apiUrl from '../../api';
+import products_actions from '../../store/actions/products';
 
 const AllProducts = () => {
-  let { products_read } = products_actions
+  let { products_read } = products_actions;
 
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigation = useNavigation();
-  const products = useSelector(store => store.products.products);
-  console.log(products);
+  const products = useSelector((store) => store.products.products);
+
 
   useEffect(() => {
     if (products.length === 0) {
@@ -21,13 +22,48 @@ const AllProducts = () => {
     }
   }, []);
 
+  const [order, setOrder] = useState('asc');
+  const [sortType, setSortType] = useState('lowest'); // Nuevo estado para el tipo de orden
+
+  const handleOrderChange = (type) => {
+    const newOrder = order === 'asc' ? 'desc' : 'asc';
+    setOrder(newOrder);
+    setSortType(type);
+  };
+
+  const [prodOne, setProdOne] = useState([]);
+
+  useEffect(() => {
+    axios(`${apiUrl}products/order?order=${order}`)
+      .then((res) => {
+        setProdOne(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, [order]);
+console.log(prodOne)
   return (
     <ScrollView>
       <View>
+        <View style={{ display: 'flex', flexDirection: 'row' }}>
+          <Button
+            mode="contained"
+            onPress={() => handleOrderChange('lowest')}
+            disabled={sortType === 'lowest'} 
+          >
+            Filter by lowest price
+          </Button>
+          <Button
+            mode="contained"
+            onPress={() => handleOrderChange('highest')}
+            disabled={sortType === 'highest'} 
+          >
+            Filter by highest price
+          </Button>
+        </View>
         <Text style={{ padding: 9, textAlign: 'center', fontSize: 24, fontWeight: 'bold' }}>
           Take a look at our products!
         </Text>
-        {products.map(prod => (
+        {prodOne?.map((prod) => (
           <TouchableOpacity
             key={prod._id}
             style={{
@@ -41,7 +77,7 @@ const AllProducts = () => {
               shadowRadius: 2,
               elevation: 2,
             }}
-            onPress={() => navigation.navigate("DetailsProduct", { id: `${prod._id}` })}
+            onPress={() => navigation.navigate('DetailsProduct', { id: `${prod._id}` })}
           >
             <Image source={{ uri: prod.photo }} style={{ height: 200, width: '100%', borderRadius: 10 }} />
 
@@ -49,7 +85,9 @@ const AllProducts = () => {
               <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{prod.name}</Text>
             </View>
 
-            <View style={{ marginTop: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <View
+              style={{ marginTop: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
+            >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <FontAwesome name="check-circle" size={16} color="#6B7280" />
                 <View style={{ marginLeft: 8 }}>
@@ -67,7 +105,10 @@ const AllProducts = () => {
               </View>
             </View>
 
-            <Button mode="contained" onPress={() => navigation.navigate("DetailsProduct", { id: `${prod._id}` })}>
+            <Button
+              mode="contained"
+              onPress={() => navigation.navigate('DetailsProduct', { id: `${prod._id}` })}
+            >
               Detail
             </Button>
           </TouchableOpacity>
@@ -75,7 +116,6 @@ const AllProducts = () => {
       </View>
     </ScrollView>
   );
-
 };
 
 export default AllProducts;

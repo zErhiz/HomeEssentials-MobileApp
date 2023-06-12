@@ -10,6 +10,7 @@ import SignIn from "../screens/SignIn";
 import AllProducts from "../screens/AllProducts";
 import DetailsProduct from "../screens/DetailsProducs"
 import SearchBar from "../screens/SearchBar"
+import CategoryProduct from "../screens/CategoryProducts"
 const Tab = createBottomTabNavigator();
 
 function BottomTabsNavigator() {
@@ -62,6 +63,15 @@ function BottomTabsNavigator() {
            <Text style={{ fontSize: 18 }}>HomeEssentials</Text>
           
              </View> , 
+      })}
+    />
+        <Tab.Screen name="Category" component={CategoryProduct}options={() => ({
+        headerTitle: () => <View style={{width:"100%", display:"flex", justifyContent:"space-between",alignItems:"center", flexDirection:"row"}}> 
+        <Text style={{ fontSize: 18 }}>HomeEssentials</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("SearchInput")}>
+             <FontAwesome name="search" size={16} color="#6B7280" />
+           </TouchableOpacity>
+          </View>, 
       })}
     />
     </Tab.Navigator>
