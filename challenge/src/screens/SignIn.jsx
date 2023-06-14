@@ -4,10 +4,11 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { Text, View, ImageBackground, Pressable, Alert, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StylesNew } from "../../styles/Stylescss";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from 'expo-linear-gradient';
 import Fondo from '../../assets/Signin.png'
 import User from "react-native-vector-icons/FontAwesome"
-
+import axios from "axios";
 
 import apiUrl from "../../api";
 const SignIn = () => {
@@ -25,6 +26,25 @@ const SignIn = () => {
   const handleHomePress = () => {
     navigation.navigate("Home")
   }
+  const handleFormSubmit = async () => {
+    try {
+      const response = await axios.post(apiUrl + "auth/signin", {
+        email: email,
+        password: password,
+      });
+
+      await AsyncStorage.setItem("token", response.data.token);
+      await AsyncStorage.setItem("user", JSON.stringify(response.data.user));
+
+      Alert.alert("Signed in!", "You have been successfully signed in.");
+
+      // Redirigir al usuario a la pantalla de inicio (Home)
+      navigation.navigate("Home");
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Error", "An error occurred while signing in.");
+    }
+  };
   return (
     <ImageBackground
       source={Fondo}
@@ -88,7 +108,7 @@ const SignIn = () => {
           height: 110, 
           justifyContent: "space-evenly"
         }}>
-          <TouchableOpacity style={{ alignItems: "center" }} /* onPress={handleFormSubmit} hacer funcion handleformSubmit cuando este todo bien andando el front */ >
+          <TouchableOpacity style={{ alignItems: "center" }}  onPress={handleFormSubmit}  >
             <LinearGradient
               colors={['#FF8A00', '#FF8A00']}
               style={{ width: 140, height: 45, justifyContent: "center", borderRadius: 50, justifyContent: "center", alignContent: "center", alignItems: "center" }}>
