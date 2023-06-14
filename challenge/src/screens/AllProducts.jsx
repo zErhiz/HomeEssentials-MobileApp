@@ -7,6 +7,10 @@ import { Button } from 'react-native-paper';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import apiUrl from '../../api';
 import products_actions from '../../store/actions/products';
+import { LinearGradient } from 'expo-linear-gradient';
+import Icon from "react-native-vector-icons/FontAwesome";
+import { StylesNew } from '../../styles/Stylescss';
+
 
 const AllProducts = () => {
   let { products_read } = products_actions;
@@ -43,18 +47,17 @@ const AllProducts = () => {
   console.log(prodOne)
 
   return (
-    <ScrollView>
-      <View style={{
-        paddingLeft: 20,
-        paddingRight: 20
-      }}>
-        <View style={{ display: 'flex', justifyContent: "space-around", flexDirection: 'row' }}>
+    <ScrollView style={{ backgroundColor: "#E7E7E799" }}>
+
+      <View>
+
+        <View style={{ marginTop: 20, display: 'flex', justifyContent: "space-evenly", flexDirection: 'row' }}>
           <Button
             mode="contained"
             onPress={() => handleOrderChange('lowest')}
             disabled={sortType === 'lowest'}
             style={{
-              width: 120
+              width: 140
             }}
           >
             Filter by lowest price
@@ -67,52 +70,78 @@ const AllProducts = () => {
             Filter by highest price
           </Button>
         </View>
-        <Text style={{ padding: 9, textAlign: 'center', fontSize: 24, fontWeight: 'bold' }}>
+        <Text style={{ padding: 9, textAlign: 'left', marginTop: 20, fontSize: 24, fontWeight: 'bold' }}>
           Take a look at our products!
         </Text>
-        {prodOne?.map((prod) => (
-          <TouchableOpacity
-            key={prod._id}
-            style={{
-              borderRadius: 10,
-              padding: 12,
-              width: '100%',
-              marginVertical: 8,
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.2,
-              shadowRadius: 2,
-              elevation: 2,
-            }}
-            onPress={() => navigation.navigate('DetailsProduct', { id: `${prod._id}` })}
-          >
-            <Image source={{ uri: prod.photo }} style={{ height: 200, width: '100%', borderRadius: 10 }} />
 
-            <View style={{ marginTop: 8 }}>
-              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{prod.name}</Text>
-            </View>
+        {/* 1rs section */}
+        <View style={{
+          backgroundColor: "transparent"
+        }}>
+          <ScrollView 
+            showsHorizontalScrollIndicator={false}
+            horizontal style={{
+            display: "flex",
+            overflow: "hidden",
+          }}>
 
-            <View
-              style={{ marginTop: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
-            >
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <FontAwesome name="check-circle" size={16} color="#6B7280" />
-                <View style={{ marginLeft: 8 }}>
-                  <Text style={{ fontSize: 14, color: '#7847E0' }}>Stock</Text>
-                  <Text style={{ fontSize: 14, fontWeight: 'bold' }}>{prod.stock_Available}</Text>
+            {prodOne?.map((prod) => (
+              <TouchableOpacity
+                key={prod._id}
+                style={{
+                  width: 170,
+                  height: 280,
+                  paddingBottom: 6,
+                  marginHorizontal: 4,
+                  backgroundColor: "#fff",
+                  justifyContent: "space-between",
+                  borderRadius: 6,
+                  alignItems: "center"
+                }}
+                onPress={() => navigation.navigate('DetailsProduct', { id: `${prod._id}` })}
+              >
+                <Image source={{ uri: prod.photo }}
+                  style={{
+                    height: 170,
+                    width: "100%",
+                    borderTopLeftRadius: 6,
+                    borderTopRightRadius: 6,
+                  }} />
+
+                <View style={StylesNew.CardsHorInfo}>
+
+                  <Text style={{ fontSize: 17, fontWeight: '500', textAlign: "left" }}>{prod.name}</Text>
+
+                  <View
+                    style={{ marginTop: 12, width: "100%", flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
+                  >
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                      <FontAwesome name="check-circle" size={20} color="#7847E0" />
+                      <View style={{ marginLeft: 8 }}>
+                        <Text style={{ fontSize: 12, color: '#6B7280' }}>Stock</Text>
+                        <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#7847E0' }}>{prod.stock_Available}</Text>
+                      </View>
+                    </View>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                      <FontAwesome name="tag" size={20} color="#7847E0" />
+                      <View style={{ marginLeft: 8 }}>
+                        <Text style={{ fontSize: 12, color: '#6B7280' }}>Price</Text>
+                        <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#7847E0' }}>$ {prod.price}</Text>
+                      </View>
+                    </View>
+
+                  </View>
                 </View>
-              </View>
 
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <FontAwesome name="tag" size={16} color="#6B7280" />
-                <View style={{ marginLeft: 8 }}>
-                  <Text style={{ fontSize: 14, color: '#6B7280' }}>Price</Text>
-                  <Text style={{ fontSize: 14, fontWeight: 'bold' }}>${prod.price}</Text>
-                </View>
-              </View>
-            </View>
-          </TouchableOpacity>
-        ))}
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+
+        {/* 2nd section */}
+
+
       </View>
     </ScrollView>
   );
