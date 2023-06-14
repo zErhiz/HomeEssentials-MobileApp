@@ -24,11 +24,13 @@ const HomeScreen = () => {
   }, [isFocused]);
   
   const navigation = useNavigation();
-
+  const handleExploreProducts = () => {
+    navigation.navigate('Main');
+  };
   return (
     <>
       {token ? (
-        <ExploreProducts />
+        handleExploreProducts()
       ) : (
         <ImageBackground
           source={HomeBack}
