@@ -38,8 +38,8 @@ const SignIn = () => {
 
       Alert.alert("Signed in!", "You have been successfully signed in.");
 
-      // Redirigir al usuario a la pantalla de inicio (Home)
-      navigation.navigate("Home");
+      
+      navigation.navigate("Main");
     } catch (error) {
       console.log(error);
       Alert.alert("Error", "An error occurred while signing in.");
