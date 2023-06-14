@@ -44,14 +44,14 @@ const Cart = () => {
         }
       }
     };
-
+  
     fetchCart();
-  }, [headers, user]);
+  }, [headers, user,products]);
 
   console.log(user?.email);
 
   const addProduct = (product_id) => {
-    const data = { userEmail: email, productId: product_id };
+    const data = { userEmail: user?.email, productId: product_id };
     axios.post(`${apiUrl}cart/create`, data, headers)
       .then(res => {
         console.log(res);
@@ -65,7 +65,7 @@ const Cart = () => {
   };
 
   const subtractProduct = (product_id) => {
-    const data = { userEmail: email, productId: product_id };
+    const data = { userEmail: user?.email, productId: product_id };
     axios.put(`${apiUrl}cart/subtract`, data, headers)
       .then(res => {
         console.log(res);
@@ -87,9 +87,10 @@ const Cart = () => {
 
   const render = () => {
     if (headers) {
-      axios.get(`${apiUrl}cart/${user?.email}`, headers)
-        .then(res => setProducts(res.data.response))
-        .catch(err => console.log(err));
+      axios
+        .get(`${apiUrl}cart/${user?.email}`, headers)
+        .then((res) => setProducts(res.data.response))
+        .catch((err) => console.log(err));
     }
   };
 
@@ -124,6 +125,7 @@ const Cart = () => {
                       <View style={{ width: 110, display: "flex", alignItems: "center" }}>
 
                         <View style={{ width: 60, height: 50, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', borderWidth: 1, borderColor: 'gray' }}>
+                        <TouchableOpacity style={{ width: '33%', fontSize: 20, fontWeight: 'bold', paddingBottom: 1 }} onPress={() => subtractProduct(product.product_id._id)}><Text style={{ fontSize: 20 }}>-</Text></TouchableOpacity>
                           <Text style={{ width: '33%', fontSize: 20, textAlign: 'center' }}>{product?.quantity}</Text>
                           <TouchableOpacity style={{ width: '33%', fontSize: 20, fontWeight: 'bold', paddingBottom: 1 }} onPress={() => addProduct(product.product_id._id)}><Text style={{ fontSize: 20 }}>+</Text></TouchableOpacity>
                         </View>

@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StylesNew } from "../../styles/Stylescss";
 import { LinearGradient } from 'expo-linear-gradient';
 import categories from "../../store/actions/categories"
-import Carrousel from "../components/carrousel";
+import Carrousel from "../components/Carrousel";
 import CardsProducts from "../components/CardsProducts";
 
 const ExploreProducts = () => {
