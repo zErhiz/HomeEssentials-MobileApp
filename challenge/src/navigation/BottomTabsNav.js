@@ -19,25 +19,13 @@ function BottomTabsNavigator() {
   const navigation = useNavigation();
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen}
-        options={{
-          headerShown: false,
-        }} />
-      <Tab.Screen name="Register" component={Register}
-        options={{
-          headerShown: false,
-        }} />
-      <Tab.Screen name="SignIn" component={SignIn}
-        options={{
-          headerShown: false,
-        }} />
-      <Tab.Screen name="Cart" component={Cart}
-        options={{
-          headerShown: false,
-        }} />
+     
       <Tab.Screen name="ExploreProducts" component={ExploreProducs}
         options={() => ({
-          headerTitle: () => <View style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="home" color="purple" size={size} />
+          ),
+          headerTitle: () => <View style={{ width: 300, display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
             <Image source={logo} style={{
               height: 25, width: 100
             }} />
@@ -47,8 +35,26 @@ function BottomTabsNavigator() {
           </View>,
         })}
       />
+      <Tab.Screen name="Cart" component={Cart}
+        options={() => ({
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="shopping-cart" color="purple" size={size} />
+          ),
+          headerTitle: () => <View style={{ width: 300, display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
+            <Image source={logo} style={{
+              height: 25, width: 100
+            }} />
+            <TouchableOpacity onPress={() => navigation.navigate("SearchInput")}>
+              <FontAwesome name="search" size={16} color="#7847E0" />
+            </TouchableOpacity>
+          </View>,
+        })}
+         />
       <Tab.Screen name="AllProducts" component={AllProducts} options={() => ({
-        headerTitle: () => <View style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="search-plus" color="purple" size={size} />
+          ),
+        headerTitle: () => <View style={{ width: 300, display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
           <Image source={logo} style={{
             height: 25, width: 100
           }} />
@@ -58,26 +64,14 @@ function BottomTabsNavigator() {
         </View>,
       })}
       />
-      <Tab.Screen name="DetailsProduct" component={DetailsProduct} options={() => ({
-        headerTitle: () => <View style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
-          <Image source={logo} style={{
-            height: 25, width: 100
-          }} />
-          <TouchableOpacity onPress={() => navigation.navigate("SearchInput")}>
-            <FontAwesome name="search" size={16} color="#7847E0" />
-          </TouchableOpacity>
-        </View>,
-      })}
-      />
-      <Tab.Screen name="SearchInput" component={SearchBar} options={() => ({
-        headerTitle: () => <View style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
-          <Text style={{ fontSize: 18 }}>HomeEssentials</Text>
-
-        </View>,
-      })}
-      />
+  
+   
+      
       <Tab.Screen name="Category" component={CategoryProduct} options={() => ({
-        headerTitle: () => <View style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="wpexplorer" color="purple" size={size} />
+          ),
+        headerTitle: () => <View style={{ width: 300, display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
           <Image source={logo} style={{
             height: 25, width: 100
           }} />
