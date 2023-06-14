@@ -10,9 +10,18 @@ export const StylesNew = StyleSheet.create({
   },
 
   inputs: {
-    fontSize: 13, 
-    fontWeight:"200",
-    backgroundColor:""
+    fontSize: 13,
+    fontWeight: "200",
+    backgroundColor: ""
+  },
+
+  CardsHorInfo: {
+    width: 160,
+    height: 90,
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    paddingHorizontal: 6,
   },
 
   containerRegAndSignin: {
@@ -70,5 +79,11 @@ export const StylesNew = StyleSheet.create({
     color: "#7847E0",
     fontWeight: "bold",
     textAlign: "center",
+  },
+  carrousellProd: {
+    borderRadius: 30,
+    width: 330,
+    height: 200,
+    marginHorizontal: 5
   },
 }); 
