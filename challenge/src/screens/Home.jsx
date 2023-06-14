@@ -1,27 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, ImageBackground, Pressable, TouchableOpacity } from 'react-native';
+import { Text, Image, View, ImageBackground, Pressable, TouchableOpacity } from 'react-native';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
-
+import Logo from '../../assets/Logos/logo-2-b.png'
+import HomeBack from '../../assets/Homemobg.png'
 
 const HomeScreen = () => {
 
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
   return (
     <ImageBackground
-    source={{ uri: 'https://i.pinimg.com/564x/39/52/8a/39528a8cfcae17ba21b82cc4b790cfd1.jpg' }}
-    style={{flex:1,}}
-  >
-      <View style={{alignItems:"center", justifyContent: "center",flex:1, borderColor:"black",borderWidth:2, gap:40, padding:29}} >
-        <Text style={{fontSize:40}} >Home Essentials</Text>
-        <Text style={{fontSize:13}}>Welcome to our Home Furniture Emporium! Discover exquisite furniture pieces for your dream home. From luxurious sofas to functional storage solutions, we have it all. Shop with confidence and create the perfect space with us! </Text>
-        <TouchableOpacity   onPress={() => navigation.navigate('SignIn')}
-        style={{borderRadius:50, width:150,height:50, alignItems:"center",justifyContent:'center', backgroundColor:"#403d56"}}>  
-                    <Text style={{color:"white", fontWeight:"bold"}}>Sign In!</Text>
-        </TouchableOpacity>
+      source={HomeBack}
+      style={{ paddingTop: 10, height: 705, backgroundColor:"#fff", flex: 1, justifyContent: "flex-start", alignItems: "center" }}
+    >
+      <View style={{
+        height: 600,
+        width:"75%",
+      }}>
+        <View style={{ alignItems: "center", justifyContent:"center",flex: 1, borderRadius: 10, padding: 35 }} >
+          <Image style={{ height: 38, width: 150 }} source={Logo} />
+          <Text style={{ fontSize: 16, width: 250, fontWeight: "200", marginTop: 45, textAlign:"center" }}>Welcome to the store of great variety items for your home and lifestyle.</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}
+            style={{ borderRadius: 50, width: 120, height: 45, marginTop: 20, alignItems: "center", justifyContent: 'center', backgroundColor: "#FF8A00" }}>
+            <Text style={{ color: "white", fontWeight: "bold", fontSize: 16 }}>Sign In!</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-
-</ImageBackground>
+    </ImageBackground>
 
   );
 };

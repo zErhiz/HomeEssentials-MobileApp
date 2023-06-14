@@ -40,22 +40,29 @@ const AllProducts = () => {
       })
       .catch((err) => console.log(err));
   }, [order]);
-console.log(prodOne)
+  console.log(prodOne)
+
   return (
     <ScrollView>
-      <View>
-        <View style={{ display: 'flex', flexDirection: 'row' }}>
+      <View style={{
+        paddingLeft: 20,
+        paddingRight: 20
+      }}>
+        <View style={{ display: 'flex', justifyContent: "space-around", flexDirection: 'row' }}>
           <Button
             mode="contained"
             onPress={() => handleOrderChange('lowest')}
-            disabled={sortType === 'lowest'} 
+            disabled={sortType === 'lowest'}
+            style={{
+              width: 120
+            }}
           >
             Filter by lowest price
           </Button>
           <Button
             mode="contained"
             onPress={() => handleOrderChange('highest')}
-            disabled={sortType === 'highest'} 
+            disabled={sortType === 'highest'}
           >
             Filter by highest price
           </Button>
@@ -91,7 +98,7 @@ console.log(prodOne)
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <FontAwesome name="check-circle" size={16} color="#6B7280" />
                 <View style={{ marginLeft: 8 }}>
-                  <Text style={{ fontSize: 14, color: '#6B7280' }}>Stock</Text>
+                  <Text style={{ fontSize: 14, color: '#7847E0' }}>Stock</Text>
                   <Text style={{ fontSize: 14, fontWeight: 'bold' }}>{prod.stock_Available}</Text>
                 </View>
               </View>
@@ -104,13 +111,6 @@ console.log(prodOne)
                 </View>
               </View>
             </View>
-
-            <Button
-              mode="contained"
-              onPress={() => navigation.navigate('DetailsProduct', { id: `${prod._id}` })}
-            >
-              Detail
-            </Button>
           </TouchableOpacity>
         ))}
       </View>
