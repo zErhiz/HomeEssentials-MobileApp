@@ -11,8 +11,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StylesNew } from "../../styles/Stylescss";
 import { LinearGradient } from 'expo-linear-gradient';
 import categories from "../../store/actions/categories"
-
-
+import Carrousel from "./Carousel";
+import CardsProducts from "./CardsProducs";
 const ExploreProducts = () => {
 
   let { cards_home_read } = cards_home
@@ -42,7 +42,7 @@ const ExploreProducts = () => {
     <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ alignItems: "center", display: "flex", flexDirection: "column", gap: 20, backgroundColor: "#E7E7E780" }}>
        
-      
+      <Carrousel/>
         
         {/* BEST SELLERS CARDS  */}
         <View style={{ width: "90%", display: "flex", flexDirection: "column", alignItems: "center", rowGap: 4 }}>
@@ -117,7 +117,7 @@ const ExploreProducts = () => {
           </TouchableOpacity>
         </View>
 
-        
+        <CardsProducts/>
 
         {/* SEARCH BY CATEGORY  */}
         <View style={{ width: "100%", borderRadius: 10, display: "flex", flexDirection: "column", alignItems: "center", padding: 12 }}>
