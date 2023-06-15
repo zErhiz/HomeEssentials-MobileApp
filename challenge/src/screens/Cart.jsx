@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, Image, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { View, Text, Button, Image, TouchableOpacity, ScrollView, Alert, TextInput} from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import { StripeProvider, CardField } from '@stripe/stripe-react-native';
 import apiUrl from '../../api';
 
 const Cart = () => {
@@ -48,7 +49,7 @@ const Cart = () => {
     fetchCart();
   }, [headers, user,products]);
 
-  console.log(user?.email);
+
 
   const addProduct = (product_id) => {
     const data = { userEmail: user?.email, productId: product_id };
@@ -85,16 +86,34 @@ const Cart = () => {
       .catch(err => console.log(err));
   };
 
-  const render = () => {
-    if (headers) {
-      axios
-        .get(`${apiUrl}cart/${user?.email}`, headers)
-        .then((res) => setProducts(res.data.response))
-        .catch((err) => console.log(err));
+    const render = () => { axios.get(`${apiUrl}cart/${user?.email}`, headers).then(res => setProducts(res.data.response)).catch(err => console.log(err))}
+    const [viewForm, setViewForm] = useState(false)
+    const [ address, setAddress ] = useState("")
+    const [ country, setCountry] = useState("")
+    const [ dni, setDni] = useState("")
+    const [ phoneNumber, setPhoneNumber] = useState("")
+
+    const buttonProcess = () => {
+        products.length > 0? setViewForm(true) : Alert.alert("No items in the cart")
     }
-  };
 
   products.forEach(product => (totalPurchase += product.product_id.price * product.quantity));
+
+  const purchase = () => { 
+    Alert.alert("the purchase was a success")
+    navigation.navigate('ExploreProducts')
+    const body = {
+        address: address,
+        country: country,
+        dni: dni,
+        phoneNumber: phoneNumber
+    }
+    axios.post(`${apiUrl}cart/confirm?userEmail=${user?.email}`, body, headers).then(res => {
+        console.log(res)
+    }).catch(err => console.log(err))
+}
+
+
 
   return (
     <>
@@ -151,7 +170,7 @@ const Cart = () => {
                   <View style={{ height: 200, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={{ fontSize: 20, fontWeight: 'bold', paddingHorizontal: 10, paddingVertical: 5 }}>Nothing here... come back to see available products</Text>
                     <Text style={{ fontSize: 20, paddingHorizontal: 10, paddingVertical: 5 }}>Come back to see available products</Text>
-                    <Button title="More Products" onPress={() => navigation.navigate(`/allproducts`)} color="blue" />
+                    <Button title="More Products" onPress={() => navigation.navigate(`AllProducts`)} color="blue" />
                   </View>
                 </View>
               </View>
@@ -161,11 +180,75 @@ const Cart = () => {
                 <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Total Purchase: USD$ {totalPurchase.toFixed(2)}</Text>
               </View>
               <View style={{ width: '90%', height: 35, flexDirection: 'row', justifyContent: 'flex-end', paddingRight: 10 }}>
-                <Button title="Saved Changes" onPress={() => <Text>enviar a pagina de compra</Text>} color="purple" />
+              <Button title="Buy Now" onPress={() => setViewForm(!viewForm)} color="purple" />
               </View>
             </View>
           </View>
         </View>
+        {viewForm ? (
+        <View style={{ position: 'absolute', top: 0, width: '100%', height: '100%', backgroundColor: '#000000de', justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{ backgroundColor: '#ffffffde', padding: 10, paddingTop: 5, borderRadius: 8, borderWidth: 2, borderColor: 'purple', flexDirection: 'column' }}>
+         
+            <Text style={{ marginBottom: 5, width: '100%', textAlign: 'center', fontWeight: 'bold', fontSize: 16 }}>Give us an address where to deliver your order</Text>
+            <TextInput
+              style={{ width: 300, borderBottomWidth: 1, borderBottomColor: 'gray', marginBottom: 10 }}
+              placeholder="Insert your address"
+              onChangeText={(value) => setAddress(value)}
+              value={address}
+            />
+            <TextInput
+              style={{ width: 300, borderBottomWidth: 1, borderBottomColor: 'gray', marginBottom: 10 }}
+              placeholder="Insert your country"
+              onChangeText={(value) => setCountry(value)}
+              value={country}
+            />
+            <TextInput
+              style={{ width: 300, borderBottomWidth: 1, borderBottomColor: 'gray', marginBottom: 10 }}
+              placeholder="Insert your dni"
+              onChangeText={(value) => setDni(value)}
+              value={dni}
+            />
+            <TextInput
+              style={{ width: 300, borderBottomWidth: 1, borderBottomColor: 'gray', marginBottom: 10 }}
+              placeholder="Insert your telephone number"
+              onChangeText={(value) => setPhoneNumber(value)}
+              value={phoneNumber}
+            />
+           <StripeProvider
+  publishableKey="pk_test_Dt4ZBItXSZT1EzmOd8yCxonL"
+  urlScheme="your-url-scheme" // Reemplaza con tu URL Scheme
+  merchantIdentifier="merchant.com.{{YOUR_APP_NAME}}" // Reemplaza con tu identificador de comerciante para Apple Pay
+>
+  <View>
+    <CardField
+      postalCodeEnabled={false}
+      placeholder={{
+        number: '4242 4242 4242 4242',
+      }}
+      cardStyle={{
+        backgroundColor: '#ECECEC', 
+        textColor: '#000000',
+      }}
+      style={{
+        width: '100%',
+        height: 50,
+        marginVertical: 20,
+      }}
+      onCardChange={(cardDetails) => {
+        console.log('cardDetails', cardDetails);
+      }}
+    />
+  </View>
+</StripeProvider>
+            <View style={{ alignItems: 'center', paddingTop: 20, marginLeft: 5 }}>
+              
+            </View>
+          </View>
+          <TouchableOpacity style={{ width: 200, flexDirection: 'row', justifyContent:'center',alignContent:"center",alignItems:"center",borderRadius:100,backgroundColor:"purple" }}  onPress={purchase} >
+                          <Text style={{ fontSize: 20, fontWeight: 'bold',color:"white" }}>Pay with credit card</Text>
+                        </TouchableOpacity>
+        </View>
+      ) : null}
       </View>
     </>
   );
