@@ -26,7 +26,7 @@ function BottomTabsNavigator() {
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="home" color="purple" size={size} />
           ),
-          headerTitle: () => <View style={{ width: 300, display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
+          headerTitle: () => <View style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
             <Image source={logo} style={{
               height: 25, width: 100
             }} />
@@ -41,7 +41,7 @@ function BottomTabsNavigator() {
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="shopping-cart" color="purple" size={size} />
           ),
-          headerTitle: () => <View style={{ width: 300, display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
+          headerTitle: () => <View style={{width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
             <Image source={logo} style={{
               height: 25, width: 100
             }} />
@@ -55,7 +55,7 @@ function BottomTabsNavigator() {
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="search-plus" color="purple" size={size} />
           ),
-        headerTitle: () => <View style={{ width: 300, display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
+        headerTitle: () => <View style={{width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
           <Image source={logo} style={{
             height: 25, width: 100
           }} />
@@ -70,7 +70,7 @@ function BottomTabsNavigator() {
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="user" color="purple" size={size} />
           ),
-        headerTitle: () => <View style={{ width: 300, display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
+        headerTitle: () => <View style={{width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
           <Image source={logo} style={{
             height: 25, width: 100
           }} />
