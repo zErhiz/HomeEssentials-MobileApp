@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { StripeProvider, CardField } from '@stripe/stripe-react-native';
 import apiUrl from '../../api';
-
+import Icon from "react-native-vector-icons/FontAwesome";
 const Cart = () => {
   const navigation = useNavigation();
 
@@ -101,6 +101,7 @@ const Cart = () => {
 
   const purchase = () => { 
     Alert.alert("the purchase was a success")
+    setViewForm(false)
     navigation.navigate('ExploreProducts')
     const body = {
         address: address,
@@ -188,7 +189,11 @@ const Cart = () => {
         {viewForm ? (
         <View style={{ position: 'absolute', top: 0, width: '100%', height: '100%', backgroundColor: '#000000de', justifyContent: 'center', alignItems: 'center' }}>
           <View style={{ backgroundColor: '#ffffffde', padding: 10, paddingTop: 5, borderRadius: 8, borderWidth: 2, borderColor: 'purple', flexDirection: 'column' }}>
-         
+          <TouchableOpacity style={{alignSelf:"flex-end"}} onPress={() => {
+               {setViewForm(!viewForm)}
+              }}> 
+            <Icon name="close" size={20} color="purple" />
+          </TouchableOpacity>
             <Text style={{ marginBottom: 5, width: '100%', textAlign: 'center', fontWeight: 'bold', fontSize: 16 }}>Give us an address where to deliver your order</Text>
             <TextInput
               style={{ width: 300, borderBottomWidth: 1, borderBottomColor: 'gray', marginBottom: 10 }}
