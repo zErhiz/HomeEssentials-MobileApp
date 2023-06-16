@@ -102,7 +102,7 @@ const Cart = () => {
   const purchase = () => { 
     Alert.alert("the purchase was a success")
     setViewForm(false)
-    navigation.navigate('ExploreProducts')
+    navigation.navigate('Explore')
     const body = {
         address: address,
         country: country,

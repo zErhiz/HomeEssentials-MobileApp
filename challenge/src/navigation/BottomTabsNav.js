@@ -21,7 +21,7 @@ function BottomTabsNavigator() {
   return (
     <Tab.Navigator>
      
-      <Tab.Screen name="ExploreProducts" component={ExploreProducs}
+      <Tab.Screen name="Explore" component={ExploreProducs}
         options={() => ({
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="home" color="purple" size={size} />
