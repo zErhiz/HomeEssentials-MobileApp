@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
 import apiUrl from '../../api';
-
+import Icons from "react-native-vector-icons/MaterialIcons"
 import HomeScreen from './Home';
 
 const Profile = () => {
@@ -44,7 +44,7 @@ const Profile = () => {
     try {
       const token = await AsyncStorage.getItem('token');
       const headers = { headers: { Authorization: `Bearer ${token}` } };
-  
+
       Alert.alert('Logout', 'Are you sure you want to logout?', [
         {
           text: 'Cancel',
@@ -54,10 +54,10 @@ const Profile = () => {
           text: 'Logout',
           onPress: async () => {
             await axios.post(apiUrl + 'auth/signout', null, headers);
-  
+
             await AsyncStorage.removeItem('token');
             await AsyncStorage.removeItem('user');
-  
+
             Alert.alert('Goodbye', 'You have been logged out we hope to see you again ;( .', [
               {
                 text: 'OK',
@@ -71,29 +71,47 @@ const Profile = () => {
       Alert.alert('Error', error.message);
     }
   };
-if(token){
-  return (
-    <ImageBackground
-    source={{ uri: 'https://i.pinimg.com/474x/9f/da/67/9fda674a358754b0831ab235f4bf4057.jpg' }}
-    style={{flex: 1, }}>  
-    <View style={{justifyContent:"center",gap:20,alignItems:"center",width:"100%"}}>
-      {user && (
-        <View style={{  width:"90%", height:"50%",alignItems:"center", gap:40}}>
-          {user.photo ? (
-            <Image style={{ width: "35%", height: "50%", }} source={{ uri: user.photo }} />
-          ): <Image style={{ width: "35%", height: "50%", }} source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135768.png" }} />}
-          <Text style={{fontSize:24, color:"white",fontWeight:"bold"}}>{user.email}</Text>
-        </View>
-      )}
+  if (token) {
+    return (
+      <View
+        style={{ flex: 1, backgroundColor: '#fff' }}>
+        <View style={{ justifyContent: "center", alignItems: "center", width: "100%" }}>
+          {user && (
+            <View style={{ width: "80%", height:400, alignItems: "flex-start", justifyContent: "center", gap: 20 }}>
+              {user.photo ? (
+                <Image style={{ width: 100, height: 100, borderRadius: 50 }} source={{ uri: user.photo }} />
+              ) : <Image style={{ width: "35%" }} source={{ uri: "https://cdn-icons-png.flaticon.com/512/3135/3135768.png" }} />}
+              <Text style={{ fontSize: 16, color: "#393939", fontWeight: "400" }}>{user.name}</Text>
+              <Text style={{ fontSize: 16, color: "#393939", fontWeight: "400" }}>{user.lastName}</Text>
+              <Text style={{ fontSize: 16, color: "#393939", fontWeight: "400" }}>{user.email}</Text>
+            </View>
+          )}
 
-      <TouchableOpacity style={{borderColor:"black",borderWidth:2, height:"10%", width:"50%", alignItems:"center",justifyContent:"center", backgroundColor:"red", borderRadius:50}} onPress={backHome}>
-        <Text style={{color:"white", fontWeight:"bold", fontSize:20}}>Logout</Text>
-      </TouchableOpacity>
-    </View>
-    </ImageBackground>
-  );}
-  else{
-    return <HomeScreen/>
+        </View>
+        <View style={{
+          width: "100%",
+          alignItems:"center",
+          justifyContent: "flex-end",
+        }}>
+          <TouchableOpacity style={{
+            position: "relative",
+            height: 50,
+            width: 140,
+            alignItems: "center",
+            justifyContent: "space-evenly",
+            backgroundColor: "red",
+            flexDirection: "row",
+            borderRadius: 50
+          }} onPress={backHome}>
+            <Text style={{ color: "white", fontWeight: "bold", fontSize: 20 }}>Logout</Text>
+            <Icons name="logout" size={30} color='#fff' /> 
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+  else {
+    return <HomeScreen />
   }
 };
 

@@ -34,7 +34,7 @@ const HomeScreen = () => {
       ) : (
         <ImageBackground
           source={HomeBack}
-          style={{ paddingTop: 10, height: 705, backgroundColor:"#fff", flex: 1, justifyContent: "flex-start", alignItems: "center" }}
+          style={{ paddingTop: 10, height: 760, flex: 1, justifyContent: "flex-start", alignItems: "center" }}
         >
           <View style={{
             height: 600,
