@@ -4,13 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { Button } from 'react-native-paper';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import apiUrl from '../../api';
 import products_actions from '../../store/actions/products';
 import { LinearGradient } from 'expo-linear-gradient';
-import Icon from "react-native-vector-icons/FontAwesome";
 import { StylesNew } from '../../styles/Stylescss';
-
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Sort from 'react-native-vector-icons/FontAwesome5'
 
 const AllProducts = () => {
   let { products_read } = products_actions;
@@ -51,39 +50,32 @@ const AllProducts = () => {
 
       <View>
 
-        <View style={{ marginTop: 20, display: 'flex', justifyContent: "space-evenly", flexDirection: 'row' }}>
+        <View style={{ marginTop: 20, display: 'flex', alignItems: "flex-end", paddingHorizontal: 10 }}>
           <Button
+            style={{ backgroundColor: "#7847E0", width: "53%", height: 45, flexDirection: "row", justifyContent: "flex-end", alignItems: "center" }}
             mode="contained"
-            onPress={() => handleOrderChange('lowest')}
-            disabled={sortType === 'lowest'}
-            style={{
-              width: 140
-            }}
-          >
-            Filter by lowest price
-          </Button>
-          <Button
-            mode="contained"
-            onPress={() => handleOrderChange('highest')}
+            onPress={() => handleOrderChange(!true)}
             disabled={sortType === 'highest'}
           >
-            Filter by highest price
+            <Text style={{ marginRight: 10 }}> Filter by price        </Text>
+            <Sort name="sort" size={20} color="white" />
           </Button>
         </View>
-        <Text style={{ padding: 9, textAlign: 'left', marginTop: 20, fontSize: 24, fontWeight: 'bold' }}>
-          Take a look at our products!
+        <Text style={{ padding: 9, textAlign: 'left', marginTop: 20, fontSize: 20, fontWeight: 'bold', alignItems: "center" }}>
+          Take a look at our products!          <FontAwesome name="tags" size={20} color="#393939" />
         </Text>
+
 
         {/* 1rs section */}
         <View style={{
           backgroundColor: "transparent"
         }}>
-          <ScrollView 
+          <ScrollView
             showsHorizontalScrollIndicator={false}
             horizontal style={{
-            display: "flex",
-            overflow: "hidden",
-          }}>
+              display: "flex",
+              overflow: "hidden",
+            }}>
 
             {prodOne?.map((prod) => (
               <TouchableOpacity
@@ -116,10 +108,20 @@ const AllProducts = () => {
                     style={{ marginTop: 12, width: "100%", flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
                   >
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                      <FontAwesome name="check-circle" size={20} color="#7847E0" />
+                      {prod.stock_Available < 10 && prod.stock_Available > 1 && (
+                        <FontAwesome name="check-circle" size={20} color="#FFC700" />
+                      )}
+                      {prod.stock_Available >= 10 && (
+                        <FontAwesome name="check-circle" size={20} color="#1e1e" />
+                      )}
+                      {prod.stock_Available === 0 && (
+                        <FontAwesome name="check-circle" size={20} color="#e11" />
+                      )}
                       <View style={{ marginLeft: 8 }}>
                         <Text style={{ fontSize: 12, color: '#6B7280' }}>Stock</Text>
-                        <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#7847E0' }}>{prod.stock_Available}</Text>
+                        <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#7847E0' }}>
+                          {prod.stock_Available}
+                        </Text>
                       </View>
                     </View>
 
@@ -127,7 +129,9 @@ const AllProducts = () => {
                       <FontAwesome name="tag" size={20} color="#7847E0" />
                       <View style={{ marginLeft: 8 }}>
                         <Text style={{ fontSize: 12, color: '#6B7280' }}>Price</Text>
-                        <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#7847E0' }}>$ {prod.price}</Text>
+                        <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#7847E0' }}>
+                          {Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(prod.price)}
+                        </Text>
                       </View>
                     </View>
 

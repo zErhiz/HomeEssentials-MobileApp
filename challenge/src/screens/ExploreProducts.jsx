@@ -40,10 +40,10 @@ const ExploreProducts = () => {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
-      <View style={{ alignItems: "center", display: "flex", flexDirection: "column", gap: 20, backgroundColor: "#E7E7E780" }}>
-       
-      <Carrousel/>
-        
+      <View style={{ alignItems: "center", display: "flex", flexDirection: "column", gap: 20, backgroundColor: "#e7e7e790" }}>
+
+        <Carrousel />
+
         {/* BEST SELLERS CARDS  */}
         <View style={{ width: "90%", display: "flex", flexDirection: "column", alignItems: "center", rowGap: 4 }}>
 
@@ -55,7 +55,7 @@ const ExploreProducts = () => {
             <LinearGradient
               style={{
                 width: 170,
-                height: 28,
+                height: 20,
                 borderRadius: 6,
                 paddingHorizontal: 2,
                 justifyContent: "space-around",
@@ -102,7 +102,7 @@ const ExploreProducts = () => {
                   source={{ uri: card.photo }} />
                 <View style={{ display: "flex", width: 170, height: "100%", paddingVertical: 20, alignItems: "flex-start", justifyContent: "center" }}>
                   <Text style={{ fontSize: 16, fontWeight: "200", marginBottom: 5 }}>{card.name}</Text>
-                  <Text style={{ color: "#7847E0", fontSize: 17, fontWeight: "800" }}>$ {card.price}</Text>
+                  <Text style={{ color: "#7847E0", fontSize: 17, fontWeight: "800" }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(card.price)}</Text>
                 </View>
 
               </TouchableOpacity>
@@ -117,7 +117,7 @@ const ExploreProducts = () => {
           </TouchableOpacity>
         </View>
 
-        <CardsProducts/>
+        <CardsProducts />
 
         {/* SEARCH BY CATEGORY  */}
         <View style={{ width: "100%", borderRadius: 10, display: "flex", flexDirection: "column", alignItems: "center", padding: 12 }}>

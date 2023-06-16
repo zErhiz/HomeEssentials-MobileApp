@@ -11,8 +11,7 @@ export const StylesNew = StyleSheet.create({
 
   inputs: {
     fontSize: 13,
-    fontWeight: "200",
-    backgroundColor: ""
+    fontWeight: "200"
   },
 
   CardsHorInfo: {
@@ -24,16 +23,15 @@ export const StylesNew = StyleSheet.create({
     paddingHorizontal: 6,
   },
 
-  containerRegAndSignin: {
+  containerReg: {
     display: "flex",
     flexDirection: "column",
-    borderTopStartRadius: 25,
-    borderTopEndRadius: 25,
+    borderRadius: 25,
     paddingBottom: 10,
     alignItems: "center",
     justifyContent: "space-evenly",
     backgroundColor: "#fff",
-    height: "96%", width: "100%",
+    height: "80%", width: "94%",
   },
 
   container2: {

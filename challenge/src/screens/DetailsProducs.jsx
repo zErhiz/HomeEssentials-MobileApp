@@ -6,13 +6,14 @@ import { Button } from 'react-native-paper';
 import { useNavigation, useRoute } from "@react-navigation/native";
 import apiUrl from '../../api';
 import fondo from '../../assets/splash.png'
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
-
+import logo from '../../assets/Logos/logo-2-b.png'
 
 export default function ProductDetail() {
   const route = useRoute();
   const prodId = route.params?.id;
-
+  const navigation = useNavigation();
 
   console.log(prodId);
   let [prodOne, setProdOne] = useState([]);
@@ -58,14 +59,23 @@ export default function ProductDetail() {
 
 
   return (
-    <ImageBackground style={{ backgroundColor: "#fff" }}>
+    <View>
+
+      <View
+        style={{ width: "100%", height: 95, backgroundColor: "#fff", padding: 15, display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexDirection: "row" }}>
+        <TouchableOpacity onPress={() => navigation.navigate("Explore")}>
+          <Image source={logo} style={{
+            height: 26, width: 103
+          }} />
+        </TouchableOpacity>
+      </View>
+
       <View style={{ border: 1, backgroundColor: "#fff", width: "100%", height: "100%" }}>
         <View style={{
-          borderColor: "#7847E050", borderBottomWidth: 1.7, borderTopRightRadius: 30, borderTopLeftRadius: 30
+          borderColor: "#7847E0", borderBottomWidth: 1, borderTopRightRadius: 30, borderTopLeftRadius: 30
         }}>
           <Image source={{ uri: prodOne.photo }} style={{ height: 290, width: "100%" }} />
         </View>
-
 
         <View style={{
           display: "flex",
@@ -78,10 +88,36 @@ export default function ProductDetail() {
           <View style={{ marginTop: 12, borderColor: "black" }}>
             <Text style={{ textAlign: 'left', fontSize: 26, fontWeight: "500" }}>{prodOne.name}</Text>
           </View>
-          <View style={{ justifyContent: 'space-evenly', alignItems: 'flex-end', gap: 5 }}>
-            <Text style={{ fontSize: 26, color: "#7847E0", textAlign: 'left', paddingRight: 8, fontWeight: 'bold' }}>
-              $ {prodOne.price}
-            </Text>
+          <View style={{ justifyContent: 'space-evenly', height: 110, marginTop: 10, alignItems: 'flex-end', gap: 5 }}>
+
+            <View style={{
+              width: 140,
+              height: 70,
+              flexDirection: "column",
+              alignItems: "flex-end"
+            }}>
+              <View style={{
+                width: "100%",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                gap: 4
+              }}>
+                <Icon name="tag" size={20} color="#7847E080" />
+                <Text style={{ fontSize: 26, color: "#7847E0", textAlign: 'left', fontWeight: 'bold' }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(prodOne.price)}</Text>
+              </View>
+
+              <View style={{
+                width: "100%",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                gap: 4
+              }}>
+                <FontAwesome name="check-circle" size={20} color="#7847E080" />
+                <Text style={{ fontSize: 16, color: "#7847E080" }}>stock: {prodOne.stock_Available}</Text>
+              </View>
+            </View>
 
             <View style={{
               flexDirection: "row",
@@ -102,25 +138,25 @@ export default function ProductDetail() {
             </View>
           </View>
 
-
-          <View>
+          <View style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}>
             <View style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              margin: 6
-            }}>
-              <View style={{
-                height: 1,
-                width: "100%",
-                backgroundColor: "#FF8A00",
-              }}></View>
-            </View>
+              height: 1,
+              width: "90%",
+              backgroundColor: "#FF8A00",
+            }}></View>
+          </View>
+          <View style={{
+            alignItems: "center"
+          }}>
             <Text style={{ textAlign: 'left', fontSize: 16, fontWeight: "300" }}>{prodOne.description}</Text>
           </View>
 
         </View>
       </View>
-    </ImageBackground>
+    </View>
   );
 }

@@ -3,6 +3,8 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView, ImageBackground, I
 import { useNavigation } from "@react-navigation/native";
 import apiUrl from "../../api";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import logo from '../../assets/Logos/logo-solid-b.png'
+
 const SearchBar = () => {
   const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState("");
@@ -35,16 +37,28 @@ const SearchBar = () => {
   const showOverflowScroll = searchResults.length > 0;
 
   return (
-    <View>
-      <View style={{ flexDirection: "row", justifyContent: "center" }}>
+    <View style={{
+      backgroundColor: "#fff",
+    }}>
+      <View style={{ flexDirection: "row", marginTop: 40, padding: 12, alignItems: "center" }}>
+        <Image
+          style={{
+            width: 30,
+            height: 30,
+            marginRight: 12,
+            borderRadius: 3
+          }}
+          source={logo} />
         <TextInput
           placeholder="Search..."
           style={{
             flex: 1,
-            borderRadius: 30,
-            borderColor: "#999",
+            borderTopLeftRadius: 30,
+            borderBottomLeftRadius: 30,
+            borderColor: "#7847E0",
             borderWidth: 1,
-            backgroundColor: "#EDECEC",
+            height: 50,
+            backgroundColor: "#e7e7e790",
             paddingHorizontal: 16,
             paddingVertical: 12,
             fontSize: 16,
@@ -53,21 +67,30 @@ const SearchBar = () => {
           onChangeText={handleSearchQueryChange}
         />
         <TouchableOpacity
-          style={{ backgroundColor: "purple", borderRadius: 30, paddingHorizontal: 16, paddingVertical: 12, display:"flex", justifyContent:"center" }}
+          style={{
+            backgroundColor: '#7847E0',
+            borderTopRightRadius: 30,
+            borderBottomRightRadius: 30,
+            paddingVertical: 12,
+            paddingRight: 6,
+            width: 70,
+            height: 50,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
           onPress={handleSearch}
         >
-          <FontAwesome name="search" size={16} color="white" />
+          <FontAwesome name="search" size={20} color="white" />
         </TouchableOpacity>
       </View>
-    
-      <ScrollView
-        
-      >
+
+      {searchQuery.length > 0 ? <ScrollView>
         {searchResults.map((product) => (
           <TouchableOpacity
             key={product._id}
             onPress={() => navigation.navigate("DetailsProduct", { id: `${product._id}` })}
-            style={{ backgroundColor: "white", borderRadius: 8, shadowColor: "#000", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 3, elevation: 5, padding: 16, flexDirection: "row", alignItems: "center", marginBottom: 8 }}
+            style={{ backgroundColor: "#e7e7e790", borderRadius: 8, shadowColor: "#000", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 3, elevation: 5, padding: 16, flexDirection: "row", alignItems: "center", marginBottom: 8 }}
           >
             <Image
               source={{ uri: product.photo }}
@@ -79,7 +102,24 @@ const SearchBar = () => {
             </View>
           </TouchableOpacity>
         ))}
-      </ScrollView>
+      </ScrollView> :
+        <View style={{
+          height: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+          paddingBottom: 200,
+          backgroundColor: "#e7e7e790",
+          gap: 10
+        }}>
+          <Text style={{
+            fontSize: 16,
+            color: "#7847E070",
+            fontWeight: "400",
+          }}>
+            Search your favourites products!
+          </Text>
+          <FontAwesome name="search" size={60} color="#7847E070" />
+        </View>}
     </View>
   );
 };
