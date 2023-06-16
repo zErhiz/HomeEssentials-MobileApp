@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import products_actions from '../../store/actions/products';
 import { StylesNew } from "../../styles/Stylescss";
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
 function CardsProducts() {
@@ -18,7 +19,7 @@ function CardsProducts() {
     const [order, setOrder] = useState('asc');
     const products = useSelector((store) => store.products.products);
 
-    const AllProducts = ()=>{
+    const AllProducts = () => {
         navigation.navigate('AllProducts')
     }
 
@@ -42,12 +43,12 @@ function CardsProducts() {
             paddingTop: 8,
 
         }}>
-            <Text 
+            <Text
                 style={{
                     color: "#7847E0",
                     fontWeight: "bold",
-                    width:"100%",
-                    textAlign:"right",
+                    width: "100%",
+                    textAlign: "right",
                     paddingHorizontal: 12,
                     paddingBottom: 8,
                     fontSize: 14
@@ -93,7 +94,15 @@ function CardsProducts() {
                                 style={{ marginTop: 12, width: "100%", flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
                             >
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                    <Icon name="check-circle" size={20} color="#7847E0" />
+                                    {prod.stock_Available < 10 && prod.stock_Available > 1 && (
+                                        <FontAwesome name="check-circle" size={20} color="#FFC700" />
+                                    )}
+                                    {prod.stock_Available >= 10 && (
+                                        <FontAwesome name="check-circle" size={20} color="#1e1e" />
+                                    )}
+                                    {prod.stock_Available === 0 && (
+                                        <FontAwesome name="check-circle" size={20} color="#e11" />
+                                    )}
                                     <View style={{ marginLeft: 8 }}>
                                         <Text style={{ fontSize: 12, color: '#6B7280' }}>Stock</Text>
                                         <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#7847E0' }}>{prod.stock_Available}</Text>
@@ -104,7 +113,7 @@ function CardsProducts() {
                                     <Icon name="tag" size={20} color="#7847E0" />
                                     <View style={{ marginLeft: 8 }}>
                                         <Text style={{ fontSize: 12, color: '#6B7280' }}>Price</Text>
-                                        <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#7847E0' }}>$ {prod.price}</Text>
+                                        <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#7847E0' }}>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(prod.price)}</Text>
                                     </View>
                                 </View>
 

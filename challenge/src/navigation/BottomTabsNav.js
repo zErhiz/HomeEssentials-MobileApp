@@ -20,11 +20,26 @@ function BottomTabsNavigator() {
   const navigation = useNavigation();
   return (
     <Tab.Navigator>
-     
+
       <Tab.Screen name="ExploreProducts" component={ExploreProducs}
         options={() => ({
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="home" color="purple" size={size} />
+            <FontAwesome name="home" color="#7847E0" size={size} />
+          ),
+          headerTitle: () => <View style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
+            <Image source={logo} style={{
+              height: 26, width: 103
+            }} />
+            <TouchableOpacity onPress={() => navigation.navigate("SearchInput")}>
+              <FontAwesome name="search" size={16} color="#7847E0" />
+            </TouchableOpacity>
+          </View>,
+        })}
+      />
+      <Tab.Screen name="Cart" component={Cart}
+        options={() => ({
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="shopping-cart" color="#7847E0" size={size} />
           ),
           headerTitle: () => <View style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
             <Image source={logo} style={{
@@ -36,26 +51,11 @@ function BottomTabsNavigator() {
           </View>,
         })}
       />
-      <Tab.Screen name="Cart" component={Cart}
-        options={() => ({
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="shopping-cart" color="purple" size={size} />
-          ),
-          headerTitle: () => <View style={{width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
-            <Image source={logo} style={{
-              height: 25, width: 100
-            }} />
-            <TouchableOpacity onPress={() => navigation.navigate("SearchInput")}>
-              <FontAwesome name="search" size={16} color="#7847E0" />
-            </TouchableOpacity>
-          </View>,
-        })}
-         />
       <Tab.Screen name="AllProducts" component={AllProducts} options={() => ({
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="search-plus" color="purple" size={size} />
-          ),
-        headerTitle: () => <View style={{width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
+        tabBarIcon: ({ color, size }) => (
+          <FontAwesome name="search" size={size} color="#7847E0" />
+        ),
+        headerTitle: () => <View style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
           <Image source={logo} style={{
             height: 25, width: 100
           }} />
@@ -65,12 +65,12 @@ function BottomTabsNavigator() {
         </View>,
       })}
       />
-        
-        <Tab.Screen name="Profile" component={Profile} options={() => ({
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="user" color="purple" size={size} />
-          ),
-        headerTitle: () => <View style={{width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
+
+      <Tab.Screen name="Profile" component={Profile} options={() => ({
+        tabBarIcon: ({ color, size }) => (
+          <FontAwesome name="user" color="#7847E0" size={size} />
+        ),
+        headerTitle: () => <View style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
           <Image source={logo} style={{
             height: 25, width: 100
           }} />
@@ -80,7 +80,7 @@ function BottomTabsNavigator() {
         </View>,
       })}
       />
-       
+
 
     </Tab.Navigator>
   );
